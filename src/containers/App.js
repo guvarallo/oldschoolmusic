@@ -6,15 +6,20 @@ import './App.css';
 function App() {
   const apiKey = 'xHkvirUsAkQKmuPtVhkNgQFyjUkQbbWFAhKwREnq';
   const [searchTerm, setSearchTerm] = useState({term: ''});
-  const [results, setResults] = useState([]);
+  // const [albumResults, setAlbumResults] = useState([]);
+  const [artistResults, setArtistResults] = useState([{}]);
 
   function handleTermChange(event) {
     setSearchTerm({term: event.target.value});
   }
 
-  function handleSearch() {
+  function handleArtistSearch() {
     searchArtist(searchTerm.term);
   }
+
+  // function handleAlbumSearch() {
+  //   searchAlbum(searchTerm.term);
+  // }
 
   function searchArtist(term) {
     try {
@@ -25,34 +30,55 @@ function App() {
       })
       .then(res => res.json())
       .then(data => {
-        return data.results.map(result => {
-          return setResults(el => [...el, {
-            id: result.id,
-            genre: result.genre,
-            style: result.style,
-            title: result.title,
-            year: result.year,
-            img: result.cover_image
-          }])
-        })
+        let art = data.results.filter(result => result.type === 'artist');
+        return setArtistResults(art[0]);
       })
     } catch (err) {
       console.log(err);
     }
   }
 
+  // function searchAlbum(term) {
+  //   try {
+  //     fetch(`https://api.discogs.com/database/search?q=${term}`, {
+  //       headers: {
+  //         Authorization: `Discogs token=${apiKey}`
+  //       }
+  //     })
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       return data.results.map(result => {
+  //         return setAlbumResults(el => [...el, {
+  //           id: result.id,
+  //           genre: result.genre,
+  //           style: result.style,
+  //           title: result.title,
+  //           year: result.year,
+  //           img: result.cover_image
+  //         }])
+  //       })
+  //     })
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
 
   return (
     <div className="App">
       <h1>Artists</h1>
       <Input onChange={handleTermChange} placeholder="Search Artist" />
-      <Button type="primary" onClick={() => handleSearch()} >Go!</Button>
+      <Button type="primary" onClick={() => handleArtistSearch()} >Go!</Button>
       <div>
-        {/* {results.map(result => {
-          return (
-            <img src={result.img} alt="album"/>
-          )
-        })} */}
+        {artistResults
+          ? 
+            <>
+              <a href={artistResults.resource_url}>Click</a>
+              <img src={artistResults.cover_image} alt="band"/>
+            </>
+          : 
+            ''
+        }
       </div>
     </div>
   );
