@@ -11,8 +11,8 @@ function Albuns({ albuns }) {
 
   return (
     <>
-      {albuns.length &&
-        <>
+      {albuns &&
+        <div>
           <Row gutter={16}>
               {albuns.map(album => {
                 return (
@@ -30,10 +30,10 @@ function Albuns({ albuns }) {
           </Row>
           <Pagination 
             size="small" 
-            total={albuns.length} 
+            total={albuns.length}
             showTotal={showTotal} 
           />
-        </>
+        </div>
       }
     </>
   )

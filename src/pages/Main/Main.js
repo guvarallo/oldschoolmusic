@@ -82,7 +82,7 @@ function Main() {
               </Button>
                 {artists.img &&
                   <Link to={`/artists/${artists.id}`} >
-                    <img src={artists.img} alt="band"/>
+                    <img src={artists.img} alt={artists.title}/>
                   </Link>
                 }
             </div>
@@ -90,11 +90,17 @@ function Main() {
             <Input 
                 onChange={handleTermChange} 
                 placeholder="Search by Album" 
-                onPressEnter={() => handleSearch(searchTerm)}
+                onPressEnter={() => {
+                  setMasters([]); //Needed for new searches
+                  handleSearch(searchTerm)
+                }}
               />
               <Button 
                 type="primary" 
-                onClick={() => handleSearch(searchTerm)}
+                onClick={() => {
+                  setMasters([]);
+                  handleSearch(searchTerm)
+                }}
               >
                 Go!
               </Button>
