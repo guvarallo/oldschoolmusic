@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Radio, Input, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
-import apiConfig from '../../keys/apiKeys';
+import apiConfig from '../../apiKeys';
 import Albuns from '../Albuns/Albuns';
 
 import './Main.css';

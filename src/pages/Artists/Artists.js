@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Row, Col, Card, Pagination } from 'antd';
 import { LeftOutlined, SyncOutlined } from '@ant-design/icons';
 
-import apiConfig from '../../keys/apiKeys';
+import apiConfig from '../../apiKeys';
 import './Artists.css';
 
 function Artists() {
