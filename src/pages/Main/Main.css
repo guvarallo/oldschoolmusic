@@ -3,3 +3,7 @@
 .Main {
   text-align: center;
 }
+
+.ant-pagination-item a {
+  color: #fff;
+}

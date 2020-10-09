@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Radio, Input, Button, Spin } from 'antd';
+import { Radio, Input, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
 import Albuns from '../Albuns/Albuns';
@@ -24,49 +24,58 @@ function Main() {
   }
 
   function handleSearch(term) {
+    if (term === '') return;
+
     setIsLoading(true);
-    try {
-      fetch(`${url}q=${term}`, {
-        headers: {
-          Authorization: `Discogs token=${apiKey}`
-        }
+
+    fetch(`${url}q=${term}`, {
+      headers: {
+        Authorization: `Discogs token=${apiKey}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      let artists = data.results.filter(result => result.type === 'artist');
+      let masters = data.results.filter(result => result.type === 'master');
+      setIsLoading(false);
+      setArtists({
+        id: artists[0].id,
+        img: artists[0].cover_image,
+        title: artists[0].title
+      });
+      masters.map(result => {
+        return setMasters(el => [...el, {
+          id: result.id,
+          img: result.thumb,
+          title: result.title,
+          master_url: result.master_url
+        }]);
       })
-      .then(res => res.json())
-      .then(data => {
-        let artists = data.results.filter(result => result.type === 'artist');
-        let masters = data.results.filter(result => result.type === 'master');
-        setIsLoading(false);
-        setArtists({
-          id: artists[0].id,
-          img: artists[0].cover_image,
-          title: artists[0].title
-        });
-        masters.map(result => {
-          return setMasters(el => [...el, {
-            id: result.id,
-            img: result.thumb,
-            title: result.title,
-            master_url: result.master_url
-          }]);
-        })
-      })
-    } catch (err) {
-      console.log(err);
-    }
+    })
+    .catch(err => console.log(err));
   }
 
   return (
     <div className="Main">
       <h1>Search</h1>
       <div>
-        <Radio.Group 
+        <Radio.Group
           defaultValue="artist" 
           buttonStyle="solid" 
           onChange={handleRadioValue}
         >
-          <Radio.Button value="artist">Artist</Radio.Button>
-          <Radio.Button value="album">Album</Radio.Button>
+          <Radio.Button 
+            value="artist"
+          >
+            Artist
+          </Radio.Button>
+          <Radio.Button 
+            value="album"
+          >
+            Album
+          </Radio.Button>
         </Radio.Group>
+        
         {radioValue === 'artist'
           ? <div>
               <Input 
@@ -76,9 +85,10 @@ function Main() {
               />
               <Button 
                 type="primary" 
+                loading={isLoading}
                 onClick={() => handleSearch(searchTerm)}
               >
-                Go!
+                Search
               </Button>
                 {artists.img &&
                   <Link to={`/artists/${artists.id}`} >
@@ -97,21 +107,16 @@ function Main() {
               />
               <Button 
                 type="primary" 
+                loading={isLoading}
                 onClick={() => {
                   setMasters([]);
                   handleSearch(searchTerm)
                 }}
               >
-                Go!
+                Search
               </Button>
               <Albuns albuns={masters} />
           </div>
-        }
-      </div>
-      {console.log(artists)}
-      <div>
-        {isLoading &&
-          <Spin />
         }
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Row, Col, Card, Pagination } from 'antd';
+import { LeftOutlined, SyncOutlined } from '@ant-design/icons';
 
 import './Artists.css';
 
@@ -11,6 +12,7 @@ function Artists() {
   let releasesUrl = artistUrl + '/releases?sort=year&sort_order=asc&page=2';
   const [artist, setArtist] = useState({});
   const [releases, setReleases] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     try {
@@ -28,6 +30,7 @@ function Artists() {
           name: data.name,
           members: data.members
         })
+        setIsLoading(false);
       });
     } catch (err) {
       console.log(err);
@@ -60,6 +63,14 @@ function Artists() {
 
   return (
     <>
+      <Link to="/" >
+        <LeftOutlined />Back
+      </Link>
+      <div>
+        {isLoading &&
+          <SyncOutlined spin style={{ color: "#ff9000" }} />
+        }
+      </div>
       {artist.name &&
         <div className="artist">
           <h1>{artist.name}</h1>
@@ -70,7 +81,7 @@ function Artists() {
         </div>
       }
       {/* {console.log(artist)} */}
-      {releases.length &&
+      {releases &&
         <>
           <Row gutter={16}>
               {releases.map(release => {

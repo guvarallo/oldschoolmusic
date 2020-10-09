@@ -1,0 +1,14 @@
+@import '~antd/dist/antd.css';
+
+svg {
+  color: #fff;
+}
+
+svg:hover {
+  color: #1890ff;
+}
+
+.ant-pagination-item-active {
+  background: #1890ff;
+  color: #fff;
+}

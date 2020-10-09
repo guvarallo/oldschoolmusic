@@ -8,8 +8,13 @@
 }
 
 body {
-  background: #f0f0f5;
+  background: #232129;
   -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6, p, li {
+  color: #fff;
+  
 }
 
 body, input, button {
@@ -22,6 +27,7 @@ body, input, button {
   padding: 40px 20px;
 }
 
-button {
-  cursor: pointer;
+::selection {
+  color: none !important;
+  background: none;
 }
