@@ -61,12 +61,15 @@ function Artists() {
 
   return (
     <>
-      <Link to="/" >
-        <LeftOutlined />Back
-      </Link>
+      <header>
+        <Link to="/" >
+          <LeftOutlined />
+          <p>Back</p>
+        </Link>
+      </header>
       <div>
         {isLoading &&
-          <SyncOutlined spin style={{ color: "#ff9000" }} />
+          <SyncOutlined spin />
         }
       </div>
       {artist.name &&
