@@ -21,6 +21,7 @@ function Artists() {
       })
       .then(res => res.json())
       .then(data => {
+        console.log(data)
         setArtist({
           id: data.id,
           img: data.images[0].resource_url,
@@ -59,15 +60,16 @@ function Artists() {
 
   return (
     <>
-      {artist.members &&
+      {artist.name &&
         <div className="artist">
           <h1>{artist.name}</h1>
-          {artist.members.map(member => {
+          {artist.members && 
+            artist.members.map(member => {
             return <h2>{member.name}</h2>
           })}
         </div>
       }
-      {console.log(releases)}
+      {/* {console.log(artist)} */}
       {releases.length &&
         <>
           <Row gutter={16}>
