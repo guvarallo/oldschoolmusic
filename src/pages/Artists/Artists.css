@@ -1,0 +1,15 @@
+@import '~antd/dist/antd.css';
+
+.Artists {
+  text-align: center;
+}
+
+img {
+  max-height: 200px;
+}
+
+.title {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+}

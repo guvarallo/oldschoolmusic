@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Input, Button } from 'antd';
+import { Link } from 'react-router-dom';
 
-import './App.css';
+import './Main.css';
 
-function App() {
-  const apiKey = 'xHkvirUsAkQKmuPtVhkNgQFyjUkQbbWFAhKwREnq';
+function Main() {
   const [searchTerm, setSearchTerm] = useState({term: ''});
   // const [albumResults, setAlbumResults] = useState([]);
   const [artistResults, setArtistResults] = useState([{}]);
+  const apiKey = 'xHkvirUsAkQKmuPtVhkNgQFyjUkQbbWFAhKwREnq';
+  const url = 'https://api.discogs.com/database/search?';
 
   function handleTermChange(event) {
     setSearchTerm({term: event.target.value});
@@ -21,9 +23,10 @@ function App() {
   //   searchAlbum(searchTerm.term);
   // }
 
+
   function searchArtist(term) {
     try {
-      fetch(`https://api.discogs.com/database/search?q=${term}`, {
+      fetch(`${url}q=${term}`, {
         headers: {
           Authorization: `Discogs token=${apiKey}`
         }
@@ -65,23 +68,20 @@ function App() {
 
 
   return (
-    <div className="App">
-      <h1>Artists</h1>
+    <div className="Main">
+      <h1>Search</h1>
       <Input onChange={handleTermChange} placeholder="Search Artist" />
       <Button type="primary" onClick={() => handleArtistSearch()} >Go!</Button>
-      <div>
         {artistResults
-          ? 
-            <>
-              <a href={artistResults.resource_url}>Click</a>
+          ?
+            <Link to={`/artists/${artistResults.id}`} >
               <img src={artistResults.cover_image} alt="band"/>
-            </>
+            </Link>
           : 
             ''
         }
-      </div>
     </div>
   );
 }
 
-export default App;
+export default Main;
