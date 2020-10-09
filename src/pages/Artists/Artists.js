@@ -3,59 +3,57 @@ import { Link, useParams } from 'react-router-dom';
 import { Row, Col, Card, Pagination } from 'antd';
 import { LeftOutlined, SyncOutlined } from '@ant-design/icons';
 
+import apiConfig from '../../keys/apiKeys';
 import './Artists.css';
 
 function Artists() {
-  const apiKey = 'xHkvirUsAkQKmuPtVhkNgQFyjUkQbbWFAhKwREnq';
   let { id } = useParams();
   let artistUrl = `https://api.discogs.com/artists/${id}`;
   let releasesUrl = artistUrl + '/releases?sort=year&sort_order=asc&page=2';
+  const key = apiConfig.apiKey;
   const [artist, setArtist] = useState({});
   const [releases, setReleases] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    try {
-      fetch(artistUrl, {
-        headers: {
-          Authorization: `Discogs token=${apiKey}`
-        }
+    //Artist fetch
+    fetch(artistUrl, {
+      headers: {
+        Authorization: `Discogs token=${key}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      setArtist({
+        id: data.id,
+        img: data.images[0].resource_url,
+        name: data.name,
+        members: data.members
       })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        setArtist({
-          id: data.id,
-          img: data.images[0].resource_url,
-          name: data.name,
-          members: data.members
-        })
-        setIsLoading(false);
-      });
-    } catch (err) {
-      console.log(err);
-    }
-    try {
-      fetch(releasesUrl, {
-        headers: {
-          Authorization: `Discogs token=${apiKey}`
-        }
+      setIsLoading(false);
+    })
+    .catch(err => console.log(err));
+
+    //Releases fetch
+    fetch(releasesUrl, {
+      headers: {
+        Authorization: `Discogs token=${key}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      data.releases.map(release => {
+        return setReleases(el => [...el, {
+          id: release.id,
+          img: release.thumb,
+          title: release.title,
+          year: release.year
+        }])
       })
-      .then(res => res.json())
-      .then(data => {
-        data.releases.map(release => {
-          return setReleases(el => [...el, {
-            id: release.id,
-            img: release.thumb,
-            title: release.title,
-            year: release.year
-          }])
-        })
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }, [artistUrl, releasesUrl]);
+    })
+    .catch(err => console.log(err));
+  }, [artistUrl, key, releasesUrl]);
 
   function showTotal(total) {
     return `Total ${total} items`
@@ -80,7 +78,6 @@ function Artists() {
           })}
         </div>
       }
-      {/* {console.log(artist)} */}
       {releases &&
         <>
           <Row gutter={16}>

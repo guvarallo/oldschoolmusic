@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Radio, Input, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
+import apiConfig from '../../keys/apiKeys';
 import Albuns from '../Albuns/Albuns';
 
 import './Main.css';
@@ -12,8 +13,8 @@ function Main() {
   const [artists, setArtists] = useState([]);
   const [masters, setMasters] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const apiKey = 'xHkvirUsAkQKmuPtVhkNgQFyjUkQbbWFAhKwREnq';
   const url = 'https://api.discogs.com/database/search?';
+  const key = apiConfig.apiKey;
 
   function handleRadioValue(event) {
     setRadioValue(event.target.value);
@@ -30,7 +31,7 @@ function Main() {
 
     fetch(`${url}q=${term}`, {
       headers: {
-        Authorization: `Discogs token=${apiKey}`
+        Authorization: `Discogs token=${key}`
       }
     })
     .then(res => res.json())

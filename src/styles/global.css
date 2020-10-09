@@ -14,7 +14,6 @@ body {
 
 h1, h2, h3, h4, h5, h6, p, li {
   color: #fff;
-  
 }
 
 body, input, button {
@@ -27,7 +26,3 @@ body, input, button {
   padding: 40px 20px;
 }
 
-::selection {
-  color: none !important;
-  background: none;
-}
