@@ -36,8 +36,19 @@ function Main() {
         let artists = data.results.filter(result => result.type === 'artist');
         let masters = data.results.filter(result => result.type === 'master');
         setIsLoading(false);
-        setArtists(artists[0]);
-        setMasters(masters);
+        setArtists({
+          id: artists[0].id,
+          img: artists[0].cover_image,
+          title: artists[0].title
+        });
+        masters.map(result => {
+          return setMasters(el => [...el, {
+            id: result.id,
+            img: result.thumb,
+            title: result.title,
+            master_url: result.master_url
+          }]);
+        })
       })
     } catch (err) {
       console.log(err);
@@ -69,9 +80,9 @@ function Main() {
               >
                 Go!
               </Button>
-                {artists.cover_image &&
+                {artists.img &&
                   <Link to={`/artists/${artists.id}`} >
-                    <img src={artists.cover_image} alt="band"/>
+                    <img src={artists.img} alt="band"/>
                   </Link>
                 }
             </div>
@@ -91,6 +102,7 @@ function Main() {
           </div>
         }
       </div>
+      {console.log(artists)}
       <div>
         {isLoading &&
           <Spin />
