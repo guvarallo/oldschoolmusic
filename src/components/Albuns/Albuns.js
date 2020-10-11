@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Row, Col, Card, Pagination } from 'antd';
 
 import './Albuns.css';
 
 function Albuns({ albuns }) {
+  const [page, setPage] = useState(1);
 
-  function showTotal(total) {
-    return `Total ${total} items`
+  function showTotal(total, range) {
+    return `${range[0]}-${range[1]} of ${total} items`
+  }
+
+  function handlePage(page) {
+    setPage(page);
   }
 
   return (
@@ -30,7 +35,10 @@ function Albuns({ albuns }) {
           <Pagination 
             size="small" 
             total={albuns.length}
-            showTotal={showTotal} 
+            showTotal={showTotal}
+            defaultPageSize={50}
+            current={page}
+            onChange={handlePage}
           />
         </div>
       }

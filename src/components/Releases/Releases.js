@@ -35,7 +35,6 @@ function Releases({ artistsUrl }) {
   }
 
   function handlePage(page) {
-    console.log(page);
     setPage(page);
   }
 
