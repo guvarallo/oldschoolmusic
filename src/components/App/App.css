@@ -1,35 +1,51 @@
 @import '~antd/dist/antd.css';
 
-.App {
+.ant-layout {
   text-align: center;
 }
 
-h1, p {
+.ant-layout-header {
+  background: #232129;
+  text-align: center;
+  padding: 2rem;
+  height: auto;
+}
+
+.ant-layout-header  > h1 {
   color: #fff;
 }
 
-.ant-pagination-item a {
-  color: #fff;
+.ant-layout-content {
+  overflow: hidden;
 }
 
-header {
-  margin-bottom: 10px;
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
 }
 
-header > a {
-  width: 75px;
-  height: 75px;
-  vertical-align: top;
+.ant-input {
+  width: 40%;
+  margin: 0 10px;
 }
 
-header > a > p {
-  display: inline-block;
+.ant-pagination {
+  text-align: center;
 }
 
-header > a > p:hover {
+svg {
+  color: #232129;
+}
+
+svg:hover {
   color: #1890ff;
 }
 
-header > a > span > svg {
-  margin-right: 10px;
+.ant-pagination-item-active {
+  background: none;
+  color: #232129;
+}
+
+.ant-pagination-total-text {
+  color: #232129;
 }

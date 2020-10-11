@@ -1,9 +1,5 @@
 @import '~antd/dist/antd.css';
 
-.Artists {
+.artist {
   text-align: center;
-}
-
-h2 {
-  color: #fff;
 }

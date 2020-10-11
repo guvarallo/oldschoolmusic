@@ -1,23 +1,11 @@
 @import '~antd/dist/antd.css';
 
-* {
-  margin: 0;
-  padding: 0;
-  outline: 0;
-  box-sizing: border-box;
-}
-
 body {
-  background-color: #232129;
+  background-color: #fff;
   -webkit-font-smoothing: antialiased;
+  overflow: scroll;
 }
 
 body, input, button {
   font-size: 16px;
-}
-
-#root {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 40px 20px;
 }

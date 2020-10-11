@@ -1,0 +1,9 @@
+@import '~antd/dist/antd.css';
+
+.ant-layout-sider {
+  background: #fff;
+}
+
+h4 {
+  text-align: center;
+}

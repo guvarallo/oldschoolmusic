@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Radio, Input, Button } from 'antd';
+import { Radio, Input, Button, Layout } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
 
 import Discogs from '../../utils/DiscogsAPI';
 import Artists from '../Artists/Artists';
 import Releases from '../Releases/Releases';
 import Albuns from '../Albuns/Albuns';
+import Collection from '../Collection/Collection';
 
 import './App.css';
+
+const { Header, Footer, Sider, Content } = Layout;
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -60,64 +63,72 @@ function App() {
   }, [artists.url, releasesUrl]);
 
   return (
-    <div className="App">
-      <h1>Search</h1>
-      <header>
+    <>
+      <Layout>
+      <Header>
+        <h1>Old School Music</h1>
+      </Header>
+      <Layout>
+        <Sider>
+          <Collection />
+        </Sider>
+        <Content>
+        <h3>Search</h3>
         <Radio.Group
-          defaultValue="artist" 
-          buttonStyle="solid" 
-          onChange={handleRadioValue}
-        >
-          <Radio.Button 
-            value="artist"
+            defaultValue="artist" 
+            buttonStyle="solid" 
+            onChange={handleRadioValue}
           >
-            Artist
-          </Radio.Button>
-          <Radio.Button 
-            value="album"
+            <Radio.Button 
+              value="artist"
+            >
+              Artist
+            </Radio.Button>
+            <Radio.Button 
+              value="album"
+            >
+              Album
+            </Radio.Button>
+          </Radio.Group>
+          <Input 
+            onChange={handleTermChange} 
+            placeholder="Search by Artist or by Album" 
+            onPressEnter={() => {
+              setInputError('');
+              setMasters([]);
+              setArtists([]);
+              handleSearch(searchTerm)
+            }}
+          />
+          <Button 
+            type="primary" 
+            loading={isLoading}
+            onClick={() => {
+              setInputError('');
+              setMasters([]);
+              setArtists([]);
+              handleSearch(searchTerm)
+            }}
           >
-            Album
-          </Radio.Button>
-        </Radio.Group>
-        <Input 
-          onChange={handleTermChange} 
-          placeholder="Search by Artist or by Album" 
-          onPressEnter={() => {
-            setInputError('');
-            setMasters([]);
-            setArtists([]);
-            handleSearch(searchTerm)
-          }}
-        />
-        <Button 
-          type="primary" 
-          loading={isLoading}
-          onClick={() => {
-            setInputError('');
-            setMasters([]);
-            setArtists([]);
-            handleSearch(searchTerm)
-          }}
-        >
-          Search
-        </Button>
-        {inputError && <p>{inputError}</p>}
-      </header>
-      {radioValue === 'artist'
-        ? <>        
-            {artist.name &&
-              <Artists artist={artist} />
+            Search
+          </Button>
+          {inputError && <p>{inputError}</p>}
+          {radioValue === 'artist'
+              ? <>
+                  {artist.name &&
+                    <Artists artist={artist} />
+                  }
+                  {isLoading && <SyncOutlined spin />}
+                  {releases &&
+                    <Releases releases={releases} isLoading={isLoading} /> 
+                  }
+                </>
+              : <Albuns albuns={masters} />
             }
-            {isLoading && <SyncOutlined spin />}
-            {releases &&
-              <Releases releases={releases} isLoading={isLoading} /> 
-            }
-          </>
-        : <>
-            <Albuns albuns={masters} />
-          </>
-      }
-    </div>
+        </Content>
+      </Layout>
+    </Layout>
+    </>
   );
 }
 

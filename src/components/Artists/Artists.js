@@ -6,12 +6,12 @@ function Artists({ artist }) {
 
   return (
     <div className="artist">
-      <h1>{artist.name}</h1>
+      <h4>{artist.name}</h4>
       {artist.members && 
         artist.members.map(member => {
-        return <h2>{member.name}</h2>
+        return <p>{member.name}</p>
       })}
-  </div>
+    </div>
   )
 }
 
