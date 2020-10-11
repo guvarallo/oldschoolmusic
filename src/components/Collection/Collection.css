@@ -4,6 +4,6 @@
   background: #fff;
 }
 
-h4 {
-  text-align: center;
+#collectionId {
+  position: fixed;
 }
