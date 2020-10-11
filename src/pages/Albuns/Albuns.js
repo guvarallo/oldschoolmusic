@@ -18,7 +18,6 @@ function Albuns({ albuns }) {
                 return (
                   <Col span={8}>
                     <Card
-                      hoverable
                       cover={<img alt="example" src={album.img} />}
                       style={{ width: "100%", margin: "10px" }}
                     >

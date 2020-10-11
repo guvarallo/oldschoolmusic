@@ -12,3 +12,7 @@ svg:hover {
   background: none;
   color: #fff;
 }
+
+.ant-pagination-total-text {
+  color: #fff;
+}

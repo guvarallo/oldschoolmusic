@@ -4,6 +4,10 @@
   text-align: center;
 }
 
+h2 {
+  color: #fff;
+}
+
 header {
   margin-bottom: 10px;
 }
@@ -28,7 +32,9 @@ header > a > span > svg {
 
 
 img {
-  max-height: 200px;
+  margin: 0 auto;
+  max-height: 100px;
+  max-width: 100px;
 }
 
 .title {
