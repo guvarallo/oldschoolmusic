@@ -5,9 +5,9 @@ import Discogs from '../../utils/DiscogsAPI';
 import Artists from '../Artists/Artists';
 import Albuns from '../Albuns/Albuns';
 
-import './Main.css';
+import './App.css';
 
-function Main() {
+function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [inputError, setInputError] = useState('');
   const [radioValue, setRadioValue] = useState('artist');
@@ -34,32 +34,19 @@ function Main() {
 
     setIsLoading(true);
 
-    Discogs.search(term).then(data => {
-      let artists = data.results.filter(result => result.type === 'artist');
-      let masters = data.results.filter(result => result.type === 'master');
-      setArtists({
-        id: artists[0].id,
-        img: artists[0].cover_image,
-        title: artists[0].title,
-        url: artists[0].resource_url
-      });
-      masters.map(result => {
-        return setMasters(el => [...el, {
-          id: result.id,
-          img: result.thumb,
-          title: result.title,
-          master_url: result.master_url
-        }]);
-      })
+    Discogs.search(term)
+    .then(result => {
+      setArtists(result[0]);
+      setMasters(result[1]);
     })
     .catch(err => console.log(err));
   }
 
   useEffect(() => {
     // Artist fetch
-      Discogs.artist(artists.url)
-      .then(result => setArtist(result))
-      .catch(err => console.log(err));
+    Discogs.artist(artists.url)
+    .then(result => setArtist(result))
+    .catch(err => console.log(err));
     
     // Releases fetch
     Discogs.releases(releasesUrl)
@@ -71,7 +58,7 @@ function Main() {
   }, [artists.url, releasesUrl]);
 
   return (
-    <div className="Main">
+    <div className="App">
       <h1>Search</h1>
       <header>
         <Radio.Group
@@ -132,4 +119,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default App;
