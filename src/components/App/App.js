@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Radio, Input, Button } from 'antd';
+import { SyncOutlined } from '@ant-design/icons';
 
 import Discogs from '../../utils/DiscogsAPI';
 import Artists from '../Artists/Artists';
+import Releases from '../Releases/Releases';
 import Albuns from '../Albuns/Albuns';
 
 import './App.css';
@@ -102,18 +104,18 @@ function App() {
         {inputError && <p>{inputError}</p>}
       </header>
       {radioValue === 'artist'
-        ? <div>         
+        ? <>        
             {artist.name &&
-              <Artists 
-                artist={artist} 
-                releases={releases} 
-                isLoading={isLoading} 
-              />
+              <Artists artist={artist} />
             }
-          </div>
-        : <div>
+            {isLoading && <SyncOutlined spin />}
+            {releases &&
+              <Releases releases={releases} isLoading={isLoading} /> 
+            }
+          </>
+        : <>
             <Albuns albuns={masters} />
-          </div>
+          </>
       }
     </div>
   );

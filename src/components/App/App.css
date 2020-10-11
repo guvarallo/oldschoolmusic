@@ -11,3 +11,25 @@ h1, p {
 .ant-pagination-item a {
   color: #fff;
 }
+
+header {
+  margin-bottom: 10px;
+}
+
+header > a {
+  width: 75px;
+  height: 75px;
+  vertical-align: top;
+}
+
+header > a > p {
+  display: inline-block;
+}
+
+header > a > p:hover {
+  color: #1890ff;
+}
+
+header > a > span > svg {
+  margin-right: 10px;
+}

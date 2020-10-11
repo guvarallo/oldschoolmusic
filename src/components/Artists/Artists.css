@@ -7,39 +7,3 @@
 h2 {
   color: #fff;
 }
-
-header {
-  margin-bottom: 10px;
-}
-
-header > a {
-  width: 75px;
-  height: 75px;
-  vertical-align: top;
-}
-
-header > a > p {
-  display: inline-block;
-}
-
-header > a > p:hover {
-  color: #1890ff;
-}
-
-header > a > span > svg {
-  margin-right: 10px;
-}
-
-
-img {
-  margin: 0 auto;
-  max-height: 100px;
-  max-width: 100px;
-}
-
-.title {
-  text-align: center;
-  font-size: 0.8rem;
-  font-weight: bold;
-  color: #232129;
-}

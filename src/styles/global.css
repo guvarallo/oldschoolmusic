@@ -21,13 +21,3 @@ body, input, button {
   margin: 0 auto;
   padding: 40px 20px;
 }
-
-.ant-col.ant-col-8 {
-  transition: 0.4s;
-}
-
-.ant-col.ant-col-8:hover {
-  -webkit-transform: scale(1.05);
-  -ms-transform: scale(1.05);
-  transform: scale(1.05);
-}
