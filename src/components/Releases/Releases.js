@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Pagination } from 'antd';
+import { SyncOutlined } from '@ant-design/icons';
+
+import Discogs from '../../utils/DiscogsAPI';
 
 import './Releases.css';
 
-function Releases({ releases }) {
+function Releases({ releasesUrl }) {
+  const [releases, setReleases] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [inputError, setInputError] = useState('');
+
+  useEffect(() => {
+    Discogs.releases(releasesUrl)
+    .then(setIsLoading(true))
+    .then(results => {
+      setReleases([...results]);
+      setIsLoading(false);
+    })
+    .catch(err => {
+      setIsLoading(false);
+      setInputError('Releases not found')
+    });
+  }, [releasesUrl]);
 
   function showTotal(total) {
     return `Total ${total} items`
@@ -11,6 +30,8 @@ function Releases({ releases }) {
 
   return (
     <div>
+      {isLoading && <SyncOutlined spin />}
+      {inputError && <p className="error">{inputError}</p>}
       <Row gutter={16}>
           {releases.map(release => {
             return (

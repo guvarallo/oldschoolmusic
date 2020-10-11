@@ -49,3 +49,8 @@ svg:hover {
 .ant-pagination-total-text {
   color: #232129;
 }
+
+.error {
+  color: #c53030;
+  margin-top: 8px;
+}

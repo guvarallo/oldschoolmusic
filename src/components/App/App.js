@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Radio, Input, Button, Layout } from 'antd';
-import { SyncOutlined } from '@ant-design/icons';
 
 import Discogs from '../../utils/DiscogsAPI';
 import Artists from '../Artists/Artists';
@@ -10,15 +9,13 @@ import Collection from '../Collection/Collection';
 
 import './App.css';
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Sider, Content } = Layout;
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [inputError, setInputError] = useState('');
   const [radioValue, setRadioValue] = useState('artist');
   const [artists, setArtists] = useState([]);
-  const [artist, setArtist] = useState({});
-  const [releases, setReleases] = useState([]);
   const [masters, setMasters] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   let releasesUrl = artists.url + '/releases?sort=year&sort_order=asc&page=2';
@@ -33,7 +30,7 @@ function App() {
 
   function handleSearch(term) {
     if (!term) {
-      setInputError('Please type an Artist or an Album');
+      setInputError('Please type a valid Artist/Album');
       return;
     }
 
@@ -43,24 +40,13 @@ function App() {
     .then(result => {
       setArtists(result[0]);
       setMasters(result[1]);
-    })
-    .catch(err => console.log(err));
-  }
-
-  useEffect(() => {
-    // Artist fetch
-    Discogs.artist(artists.url)
-    .then(result => setArtist(result))
-    .catch(err => console.log(err));
-    
-    // Releases fetch
-    Discogs.releases(releasesUrl)
-    .then(results => {
-      setReleases([...results]);
       setIsLoading(false);
     })
-    .catch(err => console.log(err));
-  }, [artists.url, releasesUrl]);
+    .catch(err => {
+      setIsLoading(false);
+      setInputError('Not found');
+    })
+  }
 
   return (
     <>
@@ -112,15 +98,14 @@ function App() {
           >
             Search
           </Button>
-          {inputError && <p>{inputError}</p>}
+          {inputError && <p className="error">{inputError}</p>}
           {radioValue === 'artist'
               ? <>
-                  {artist.name &&
-                    <Artists artist={artist} />
-                  }
-                  {isLoading && <SyncOutlined spin />}
-                  {releases &&
-                    <Releases releases={releases} isLoading={isLoading} /> 
+                  {artists.title &&
+                    <>
+                      <Artists artists={artists} />
+                      <Releases releasesUrl={releasesUrl} /> 
+                    </>
                   }
                 </>
               : <Albuns albuns={masters} />
