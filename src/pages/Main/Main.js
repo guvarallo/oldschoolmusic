@@ -9,6 +9,7 @@ import './Main.css';
 
 function Main() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [inputError, setInputError] = useState('');
   const [radioValue, setRadioValue] = useState('artist');
   const [artists, setArtists] = useState([]);
   const [artist, setArtist] = useState({});
@@ -26,7 +27,10 @@ function Main() {
   }
 
   function handleSearch(term) {
-    if (term === '') return;
+    if (!term) {
+      setInputError('Please type an Artist or an Album');
+      return;
+    }
 
     setIsLoading(true);
 
@@ -69,7 +73,7 @@ function Main() {
   return (
     <div className="Main">
       <h1>Search</h1>
-      <div>
+      <header>
         <Radio.Group
           defaultValue="artist" 
           buttonStyle="solid" 
@@ -86,52 +90,44 @@ function Main() {
             Album
           </Radio.Button>
         </Radio.Group>
-        
-        {radioValue === 'artist'
-          ? <div>
-              <Input 
-                onChange={handleTermChange} 
-                placeholder="Search by Artist" 
-                onPressEnter={() => handleSearch(searchTerm)}
+        <Input 
+          onChange={handleTermChange} 
+          placeholder="Search by Artist or by Album" 
+          onPressEnter={() => {
+            setInputError('');
+            setMasters([]);
+            setArtists([]);
+            handleSearch(searchTerm)
+          }}
+        />
+        <Button 
+          type="primary" 
+          loading={isLoading}
+          onClick={() => {
+            setInputError('');
+            setMasters([]);
+            setArtists([]);
+            handleSearch(searchTerm)
+          }}
+        >
+          Search
+        </Button>
+        {inputError && <p>{inputError}</p>}
+      </header>
+      {radioValue === 'artist'
+        ? <div>         
+            {artist.name &&
+              <Artists 
+                artist={artist} 
+                releases={releases} 
+                isLoading={isLoading} 
               />
-              <Button 
-                type="primary" 
-                loading={isLoading}
-                onClick={() => handleSearch(searchTerm)}
-              >
-                Search
-              </Button>
-              {artist.name &&
-                <Artists 
-                  artist={artist} 
-                  releases={releases} 
-                  isLoading={isLoading} 
-                />
-              }
-            </div>
-          : <div>
-            <Input 
-                onChange={handleTermChange} 
-                placeholder="Search by Album" 
-                onPressEnter={() => {
-                  setMasters([]); //Needed for new searches
-                  handleSearch(searchTerm)
-                }}
-              />
-              <Button 
-                type="primary" 
-                loading={isLoading}
-                onClick={() => {
-                  setMasters([]);
-                  handleSearch(searchTerm)
-                }}
-              >
-                Search
-              </Button>
-              <Albuns albuns={masters} />
+            }
           </div>
-        }
-      </div>
+        : <div>
+            <Albuns albuns={masters} />
+          </div>
+      }
     </div>
   );
 }
