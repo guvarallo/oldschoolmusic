@@ -15,15 +15,15 @@ const Discogs = {
     })
     .then(res => res.json())
     .then(data => {
-      let artistsData = data.results.filter(result => result.type === 'artist');
-      let mastersData = data.results.filter(result => result.type === 'master');
-      let artists = {
+      const artistsData = data.results.filter(result => result.type === 'artist');
+      const mastersData = data.results.filter(result => result.type === 'master');
+      const artists = {
         id: artistsData[0].id,
         img: artistsData[0].cover_image,
         title: artistsData[0].title,
         url: artistsData[0].resource_url
       };
-      let masters = mastersData.map(result => {
+      const masters = mastersData.map(result => {
         return {
           id: result.id,
           img: result.thumb,
@@ -60,12 +60,20 @@ const Discogs = {
     })
     .then(res => res.json())
     .then(data => {
-      return data.releases.map(release => ({
+      console.log(data)
+      const releases = data.releases.map(release => ({
           id: release.id,
           img: release.thumb,
           title: release.title,
           year: release.year
-      }))
+      }));
+      const pagination = {
+        items: data.pagination.items,
+        page: data.pagination.page,
+        pages: data.pagination.pages,
+        per_page: data.pagination.per_page
+      }
+      return [releases, pagination]
     })
   }
 

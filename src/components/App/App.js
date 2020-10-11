@@ -18,7 +18,6 @@ function App() {
   const [artists, setArtists] = useState([]);
   const [masters, setMasters] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  let releasesUrl = artists.url + '/releases?sort=year&sort_order=asc&page=2';
 
   function handleRadioValue(event) {
     setRadioValue(event.target.value);
@@ -104,7 +103,7 @@ function App() {
                   {artists.title &&
                     <>
                       <Artists artists={artists} />
-                      <Releases releasesUrl={releasesUrl} /> 
+                      <Releases artistsUrl={artists.url} /> 
                     </>
                   }
                 </>

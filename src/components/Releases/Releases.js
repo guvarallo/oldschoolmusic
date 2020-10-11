@@ -6,16 +6,22 @@ import Discogs from '../../utils/DiscogsAPI';
 
 import './Releases.css';
 
-function Releases({ releasesUrl }) {
+function Releases({ artistsUrl }) {
   const [releases, setReleases] = useState([]);
+  const [pagination, setPagination] = useState({});
+  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [inputError, setInputError] = useState('');
+  const releasesUrl = artistsUrl + `/releases?sort=year&sort_order=asc&page=${page}`;
+
 
   useEffect(() => {
     Discogs.releases(releasesUrl)
     .then(setIsLoading(true))
+    .then(setReleases([]))
     .then(results => {
-      setReleases([...results]);
+      setReleases([...results[0]]);
+      setPagination(results[1]);
       setIsLoading(false);
     })
     .catch(err => {
@@ -24,8 +30,13 @@ function Releases({ releasesUrl }) {
     });
   }, [releasesUrl]);
 
-  function showTotal(total) {
-    return `Total ${total} items`
+  function showTotal(total, range) {
+    return `${range[0]}-${range[1]} of ${total} items`
+  }
+
+  function handlePage(page) {
+    console.log(page);
+    setPage(page);
   }
 
   return (
@@ -49,8 +60,11 @@ function Releases({ releasesUrl }) {
       </Row>
       <Pagination 
         size="small" 
-        total={releases.length} 
-        showTotal={showTotal} 
+        total={pagination.items}
+        showTotal={showTotal}
+        defaultPageSize={50}
+        current={page}
+        onChange={handlePage}
       />
     </div>
   )
