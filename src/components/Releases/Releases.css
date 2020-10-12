@@ -9,17 +9,7 @@
   -webkit-transform: scale(1.05);
   -ms-transform: scale(1.05);
   transform: scale(1.05);
-  cursor: move;
-  /* cursor: grab;
-  cursor: -moz-grab;
-  cursor: -webkit-grab; */
 }
-
-/* .ant-col.ant-col-8:active {
-  cursor: grabbing;
-  cursor: -moz-grabbing;
-  cursor: -webkit-grabbing;
-} */
 
 .ant-row {
   justify-content: center;
@@ -37,4 +27,8 @@
   font-size: 0.8rem;
   font-weight: bold;
   color: #232129;
+}
+
+.ant-pagination-options {
+  display: none;
 }

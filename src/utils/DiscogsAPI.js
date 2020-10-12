@@ -44,11 +44,11 @@ const Discogs = {
     })
     .then(res => res.json())
     .then(data => {
+      console.log(data)
       return {
         id: data.id,
         img: data.images[0].resource_url,
         name: data.name,
-        members: data.members
       }
     })
   },

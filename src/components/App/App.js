@@ -17,6 +17,7 @@ function App() {
   const [radioValue, setRadioValue] = useState('artist');
   const [artists, setArtists] = useState([]);
   const [masters, setMasters] = useState([]);
+  const [collection, setCollection] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   function handleRadioValue(event) {
@@ -25,6 +26,24 @@ function App() {
 
   function handleTermChange(event) {
     setSearchTerm(event.target.value);
+  }
+
+  function addToCollection(element) {
+    if (collection.find(el => el.id === element.id)) {
+      alert('Element already on your collection');
+      return;
+    }
+
+    setCollection(myCollection => [...myCollection, {
+      id: element.id,
+      img: element.img,
+      title: element.title
+    }]);
+  }
+
+  function removeFromCollection(element) {
+    let result = collection.filter(el => el.id !== element.id);
+    setCollection(result);
   }
 
   function handleSearch(term) {
@@ -54,8 +73,8 @@ function App() {
         <h1>Old School Music</h1>
       </Header>
       <Layout>
-        <Sider>
-          <Collection />
+        <Sider className="collection">
+          <Collection collection={collection} onRemove={removeFromCollection} />
         </Sider>
         <Content>
         <h3>Search</h3>
@@ -103,11 +122,14 @@ function App() {
                   {artists.title &&
                     <>
                       <Artists artists={artists} />
-                      <Releases artistsUrl={artists.url} /> 
+                      <Releases 
+                        artistsUrl={artists.url} 
+                        onAdd={addToCollection} 
+                      /> 
                     </>
                   }
                 </>
-              : <Albuns albuns={masters} />
+              : <Albuns albuns={masters} onAdd={addToCollection} />
             }
         </Content>
       </Layout>

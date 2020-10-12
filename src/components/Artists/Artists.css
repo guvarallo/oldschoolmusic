@@ -1,5 +1,14 @@
 @import '~antd/dist/antd.css';
 
 .artist {
-  text-align: center;
+  background: #f0f0f0;
+}
+
+.artist > h4 {
+  margin-top: 30px;
+}
+
+.artist > img {
+  width: 300px;
+  margin-bottom: 30px;
 }

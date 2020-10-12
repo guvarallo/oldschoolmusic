@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import Discogs from '../../utils/DiscogsAPI';
-
 import './Artists.css';
 
 function Artists({ artists }) {
@@ -18,10 +17,8 @@ function Artists({ artists }) {
     <div className="artist">
       {inputError && <p className="error">{inputError}</p>}
       <h4>{artist.name}</h4>
-      {artist.members && 
-        artist.members.map(member => {
-        return <p>{member.name}</p>
-      })}
+      <img src={artist.img} alt={artist.name}/>
+      <h4>Check out the releases we have:</h4>
     </div>
   )
 }

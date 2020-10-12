@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Pagination } from 'antd';
+import { Row, Col, Card, Pagination, Button } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
 
 import Discogs from '../../utils/DiscogsAPI';
 
 import './Releases.css';
 
-function Releases({ artistsUrl }) {
+function Releases({ artistsUrl, onAdd }) {
   const [releases, setReleases] = useState([]);
   const [pagination, setPagination] = useState({});
   const [page, setPage] = useState(1);
@@ -52,6 +52,9 @@ function Releases({ artistsUrl }) {
                 >
                   <p className="title">{release.title}</p>
                   <p className="title">Year: {release.year}</p>
+                  <Button type="primary" onClick={() => onAdd(release)}>
+                    + Add to Collection
+                  </Button>
                 </Card>
               </Col>
             )

@@ -1,9 +1,20 @@
 @import '~antd/dist/antd.css';
 
 .ant-layout-sider {
-  background: #fff;
+  background: #f0f0f0;
+  overflow-y: auto;
+  margin-top: 10px;
 }
 
-#collectionId {
-  position: fixed;
+#collectionId > h4 {
+  margin-bottom: 20px;
+}
+
+#collectionId > .ant-col.ant-col-8 {
+  max-width: 15rem;
+  transition: none;
+}
+
+#collectionId > .ant-col.ant-col-8:hover {
+  transform: none;
 }
