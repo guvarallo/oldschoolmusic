@@ -69,71 +69,77 @@ function App() {
   return (
     <>
       <Layout>
-      <Header>
-        <h1>Old School Music</h1>
-      </Header>
-      <Layout>
-        <Sider className="collection">
+        <Sider style={{ position:"fixed", width: "20%", overflowY: "scroll", top: "0", bottom: "0" }}>
           <Collection collection={collection} onRemove={removeFromCollection} />
         </Sider>
-        <Content>
-        <h3>Search</h3>
-        <Radio.Group
-            defaultValue="artist" 
-            buttonStyle="solid" 
-            onChange={handleRadioValue}
-          >
-            <Radio.Button 
-              value="artist"
+        <Layout style={{ marginLeft: 200 }}>
+          <Header >
+            <h1>Old School Music</h1>
+          </Header>
+          <Content>
+          <h3>Search</h3>
+          <Radio.Group
+              defaultValue="artist" 
+              buttonStyle="solid" 
+              onChange={handleRadioValue}
             >
-              Artist
-            </Radio.Button>
-            <Radio.Button 
-              value="album"
+              <Radio.Button 
+                value="artist"
+                onClick={() => setArtists([])}
+              >
+                Artist
+              </Radio.Button>
+              <Radio.Button 
+                value="album"
+                onClick={() => setMasters([])}
+              >
+                Album
+              </Radio.Button>
+            </Radio.Group>
+            <Input 
+              onChange={handleTermChange} 
+              placeholder="Search by Artist or by Album" 
+              onPressEnter={() => {
+                setInputError('');
+                setMasters([]);
+                setArtists([]);
+                handleSearch(searchTerm)
+              }}
+            />
+            <Button 
+              type="primary" 
+              loading={isLoading}
+              onClick={() => {
+                setInputError('');
+                setMasters([]);
+                setArtists([]);
+                handleSearch(searchTerm)
+              }}
             >
-              Album
-            </Radio.Button>
-          </Radio.Group>
-          <Input 
-            onChange={handleTermChange} 
-            placeholder="Search by Artist or by Album" 
-            onPressEnter={() => {
-              setInputError('');
-              setMasters([]);
-              setArtists([]);
-              handleSearch(searchTerm)
-            }}
-          />
-          <Button 
-            type="primary" 
-            loading={isLoading}
-            onClick={() => {
-              setInputError('');
-              setMasters([]);
-              setArtists([]);
-              handleSearch(searchTerm)
-            }}
-          >
-            Search
-          </Button>
-          {inputError && <p className="error">{inputError}</p>}
-          {radioValue === 'artist'
-              ? <>
-                  {artists.title &&
-                    <>
-                      <Artists artists={artists} />
-                      <Releases 
-                        artistsUrl={artists.url} 
-                        onAdd={addToCollection} 
-                      /> 
-                    </>
-                  }
-                </>
-              : <Albuns albuns={masters} onAdd={addToCollection} />
-            }
-        </Content>
+              Search
+            </Button>
+            {inputError && <p className="error">{inputError}</p>}
+            {radioValue === 'artist'
+                ? <>
+                    {artists.title &&
+                      <>
+                        <Artists artists={artists} />
+                        <Releases 
+                          artistsUrl={artists.url} 
+                          onAdd={addToCollection} 
+                        /> 
+                      </>
+                    }
+                  </>
+                : <Albuns 
+                    albuns={masters} 
+                    onAdd={addToCollection} 
+                    isLoading={isLoading} 
+                  />
+              }
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
     </>
   );
 }

@@ -12,7 +12,7 @@ function Collection({ collection, onRemove }) {
           <Col span={8}>
             <Card
               cover={<img alt="example" src={el.img} />}
-              style={{ width: "80%", marginBottom: "10px" }}
+              style={{ width: "100%", marginBottom: "10px" }}
             >
               <p className="title">{el.title}</p>
               <Button size="small" onClick={() => onRemove(el)}>Remove</Button>

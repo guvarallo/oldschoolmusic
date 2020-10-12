@@ -18,7 +18,7 @@ function Artists({ artists }) {
       {inputError && <p className="error">{inputError}</p>}
       <h4>{artist.name}</h4>
       <img src={artist.img} alt={artist.name}/>
-      <h4>Check out the releases we have:</h4>
+      <h4>Check out the releases we have for this artist:</h4>
     </div>
   )
 }

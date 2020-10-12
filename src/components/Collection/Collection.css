@@ -1,17 +1,14 @@
 @import '~antd/dist/antd.css';
 
 .ant-layout-sider {
-  background: #f0f0f0;
-  overflow-y: auto;
-  margin-top: 10px;
+  background: #fff;
 }
 
 #collectionId > h4 {
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 #collectionId > .ant-col.ant-col-8 {
-  max-width: 15rem;
   transition: none;
 }
 
