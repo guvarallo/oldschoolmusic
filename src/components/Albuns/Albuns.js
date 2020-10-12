@@ -24,7 +24,7 @@ function Albuns({ albuns, onAdd, isLoading }) {
         <Row gutter={16}>
         {albuns.map(album => {
           return (
-            <Col span={8}>
+            <Col key={album.id} span={8}>
               <Card
                 cover={<img alt={album.title} src={album.img} />}
                 style={{ width: "100%", margin: "10px" }}

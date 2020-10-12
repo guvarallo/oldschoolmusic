@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Pagination, Button } from 'antd';
-import { SyncOutlined } from '@ant-design/icons';
+import { SyncOutlined, PlusCircleOutlined } from '@ant-design/icons';
 
 import Discogs from '../../utils/DiscogsAPI';
 
@@ -45,10 +45,21 @@ function Releases({ artistsUrl, onAdd }) {
       <Row gutter={16}>
           {releases.map(release => {
             return (
-              <Col span={8}>
+              <Col key={release.id} span={8} className="releases">
                 <Card
-                  cover={<img alt="example" src={release.img} />}
-                  style={{ width: "100%", margin: "10px" }}
+                  cover={
+                    <>
+                    <a href="">
+                      <div class="container">
+                        <img alt={release.title} src={release.img} className="image" />
+                        <div class="middle">
+                          <PlusCircleOutlined />
+                          <div>Click for more info at DiscoGS</div>
+                        </div>
+                      </div>
+                    </a>
+                    </>
+                  }
                 >
                   <p className="title">{release.title}</p>
                   <p className="title">Year: {release.year}</p>

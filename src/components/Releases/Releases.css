@@ -1,5 +1,10 @@
 @import '~antd/dist/antd.css';
 
+.releases {
+  margin-bottom: 20px;
+  
+}
+
 .ant-col.ant-col-8 {
   max-width: 15rem;
   transition: 0.4s;
@@ -15,13 +20,6 @@
   justify-content: center;
 }
 
-.ant-card-cover > img {
-  margin: 0 auto;
-  width: 50%;
-  max-height: 100px;
-  max-width: 100px;
-}
-
 .title {
   text-align: center;
   font-size: 0.8rem;
@@ -31,4 +29,40 @@
 
 .ant-pagination-options {
   display: none;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+/* .ant-card-cover > img {
+  
+} */
+
+.image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.container:hover .middle {
+  opacity: 1;
 }

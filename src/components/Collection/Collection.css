@@ -15,3 +15,8 @@
 #collectionId > .ant-col.ant-col-8:hover {
   transform: none;
 }
+
+.collection {
+  max-width: 50%;
+  margin-left: 25%;
+}

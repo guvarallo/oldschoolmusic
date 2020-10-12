@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Radio, Input, Button, Layout } from 'antd';
+import { Radio, Input, Button, Layout, notification } from 'antd';
 
 import Discogs from '../../utils/DiscogsAPI';
 import Artists from '../Artists/Artists';
@@ -30,7 +30,9 @@ function App() {
 
   function addToCollection(element) {
     if (collection.find(el => el.id === element.id)) {
-      alert('Element already on your collection');
+      notification['info']({
+        message: 'Element already on your collection',
+      })
       return;
     }
 

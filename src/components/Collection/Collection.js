@@ -11,7 +11,7 @@ function Collection({ collection, onRemove }) {
         return (
           <Col span={8}>
             <Card
-              cover={<img alt="example" src={el.img} />}
+              cover={<img alt="example" src={el.img} className="collection"/>}
               style={{ width: "100%", marginBottom: "10px" }}
             >
               <p className="title">{el.title}</p>
