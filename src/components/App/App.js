@@ -14,7 +14,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [inputError, setInputError] = useState('');
   const [radioValue, setRadioValue] = useState('artist');
-  const [artists, setArtists] = useState([]);
+  const [artist, setArtist] = useState({});
   const [masters, setMasters] = useState([]);
   const [collection, setCollection] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -57,7 +57,7 @@ function App() {
 
     Discogs.search(term)
     .then(result => {
-      setArtists(result[0]);
+      setArtist(result[0]);
       setMasters(result[1]);
       setIsLoading(false);
     })
@@ -86,7 +86,7 @@ function App() {
             >
               <Radio.Button 
                 value="artist"
-                onClick={() => setArtists([])}
+                onClick={() => setArtist([])}
               >
                 Artist
               </Radio.Button>
@@ -103,7 +103,7 @@ function App() {
               onPressEnter={() => {
                 setInputError('');
                 setMasters([]);
-                setArtists([]);
+                setArtist([]);
                 handleSearch(searchTerm)
               }}
             />
@@ -113,7 +113,7 @@ function App() {
               onClick={() => {
                 setInputError('');
                 setMasters([]);
-                setArtists([]);
+                setArtist([]);
                 handleSearch(searchTerm)
               }}
             >
@@ -122,9 +122,9 @@ function App() {
             {inputError && <p className="error">{inputError}</p>}
             {radioValue === 'artist'
                 ? <>
-                    {artists.title &&
+                    {artist.title &&
                       <>
-                        <Artists artists={artists} onAdd={addToCollection} />
+                        <Artists artist={artist} onAdd={addToCollection} />
                       </>
                     }
                   </>

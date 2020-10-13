@@ -15,13 +15,15 @@ const Discogs = {
     })
     .then(res => res.json())
     .then(data => {
+      console.log(data)
       const artistsData = data.results.filter(result => result.type === 'artist');
       const mastersData = data.results.filter(result => result.type === 'master');
       const artists = {
         id: artistsData[0].id,
         img: artistsData[0].cover_image,
         title: artistsData[0].title,
-        url: artistsData[0].resource_url
+        url: artistsData[0].resource_url,
+        uri: artistsData[0].uri
       };
       const masters = mastersData.map(result => {
         return {
@@ -33,24 +35,6 @@ const Discogs = {
         }
       });
       return [artists, masters];
-    })
-  },
-
-  artist(url) {
-    return fetch(url, {
-      headers: {
-        Authorization: `Discogs token=${key}`
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-      return {
-        id: data.id,
-        img: data.images[0].resource_url || '',
-        name: data.name,
-        uri: data.uri
-      }
     })
   },
 
