@@ -26,15 +26,6 @@ function Artists({ artist, onAdd }) {
             </div>
           </a>
         </div>
-          {/* <div className="container">
-            <a href={artist.uri} target="blank">
-              <img src={artist.img} alt={artist.title} className="artistImg" />
-            </a>
-            <div className="middle">
-              <PlusCircleOutlined />
-              <div>Click for more info at DiscoGS</div>
-            </div>
-          </div> */}
         <h4>{`Here are all the releases we found for ${artist.title}:`}</h4>
         <Releases 
           artistsUrl={artist.url} 

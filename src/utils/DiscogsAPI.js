@@ -15,7 +15,6 @@ const Discogs = {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
       const artistsData = data.results.filter(result => result.type === 'artist');
       const mastersData = data.results.filter(result => result.type === 'master');
       const artists = {
