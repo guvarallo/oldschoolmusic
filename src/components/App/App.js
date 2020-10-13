@@ -4,7 +4,7 @@ import { Radio, Input, Button, Layout, notification } from 'antd';
 import Discogs from '../../utils/DiscogsAPI';
 import Artists from '../Artists/Artists';
 import Releases from '../Releases/Releases';
-import Albuns from '../Albuns/Albuns';
+import Albums from '../Albums/Albums';
 import Collection from '../Collection/Collection';
 
 import './App.css';
@@ -31,7 +31,7 @@ function App() {
   function addToCollection(element) {
     if (collection.find(el => el.id === element.id)) {
       notification['info']({
-        message: 'Element already on your collection',
+        message: 'Element already in your collection',
       })
       return;
     }
@@ -133,10 +133,11 @@ function App() {
                       </>
                     }
                   </>
-                : <Albuns 
-                    albuns={masters} 
+                : <Albums 
+                    albums={masters} 
                     onAdd={addToCollection} 
-                    isLoading={isLoading} 
+                    isLoading={isLoading}
+                    term={searchTerm}
                   />
               }
           </Content>

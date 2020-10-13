@@ -13,6 +13,7 @@ function Releases({ artistsUrl, onAdd }) {
   const [isLoading, setIsLoading] = useState(false);
   const [inputError, setInputError] = useState('');
   const releasesUrl = artistsUrl + `/releases?sort=year&sort_order=asc&page=${page}`;
+  const url = 'https://www.discogs.com';
 
 
   useEffect(() => {
@@ -49,10 +50,10 @@ function Releases({ artistsUrl, onAdd }) {
                 <Card
                   cover={
                     <>
-                    <a href="">
-                      <div class="container">
+                    <a href={`${url}/${release.type}/${release.id}`} target="blank">
+                      <div className="container">
                         <img alt={release.title} src={release.img} className="image" />
-                        <div class="middle">
+                        <div className="middle">
                           <PlusCircleOutlined />
                           <div>Click for more info at DiscoGS</div>
                         </div>

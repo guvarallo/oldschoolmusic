@@ -9,7 +9,7 @@ function Collection({ collection, onRemove }) {
       <h4>My Collection:</h4>
       {collection.map(el => {
         return (
-          <Col span={8}>
+          <Col key={el.id} span={8}>
             <Card
               cover={<img alt="example" src={el.img} className="collection"/>}
               style={{ width: "100%", marginBottom: "10px" }}

@@ -15,7 +15,6 @@ const Discogs = {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
       const artistsData = data.results.filter(result => result.type === 'artist');
       const mastersData = data.results.filter(result => result.type === 'master');
       const artists = {
@@ -29,7 +28,7 @@ const Discogs = {
           id: result.id,
           img: result.thumb,
           title: result.title,
-          master_url: result.master_url
+          uri: result.uri
         }
       });
       return [artists, masters];
@@ -60,11 +59,13 @@ const Discogs = {
     })
     .then(res => res.json())
     .then(data => {
+      console.log(data)
       const releases = data.releases.map(release => ({
           id: release.id,
           img: release.thumb,
           title: release.title,
-          year: release.year
+          year: release.year,
+          type: release.type
       }));
       const pagination = {
         items: data.pagination.items,
