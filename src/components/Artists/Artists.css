@@ -18,3 +18,11 @@
   backface-visibility: hidden;
   max-width: 400px;
 }
+
+.artistContainer:hover .image {
+  opacity: 0.2;
+}
+
+.artistContainer:hover .middle {
+  opacity: 1;
+}
