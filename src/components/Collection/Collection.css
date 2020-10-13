@@ -8,15 +8,10 @@
   margin: 20px 0;
 }
 
-#collectionId > .ant-col.ant-col-8 {
-  transition: none;
+.collectionImg {
+  max-width: 80px;
 }
 
-#collectionId > .ant-col.ant-col-8:hover {
-  transform: none;
-}
-
-.collection {
-  max-width: 50%;
-  margin-left: 25%;
+.collections > .ant-card > .ant-card-body {
+  padding: 10px;
 }

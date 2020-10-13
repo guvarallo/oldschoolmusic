@@ -38,7 +38,8 @@ function App() {
     setCollection(myCollection => [...myCollection, {
       id: element.id,
       img: element.img,
-      title: element.title
+      title: element.title,
+      type: element.type
     }]);
   }
 
@@ -70,7 +71,13 @@ function App() {
   return (
     <>
       <Layout>
-        <Sider style={{ position:"fixed", width: "20%", overflowY: "scroll", top: "0", bottom: "0" }}>
+        <Sider style={{ 
+          position:"fixed", 
+          width: "20%", 
+          overflowY: "scroll", 
+          top: "0", 
+          bottom: "0" 
+        }}>
           <Collection collection={collection} onRemove={removeFromCollection} />
         </Sider>
         <Layout style={{ marginLeft: 200 }}>
@@ -99,7 +106,11 @@ function App() {
             </Radio.Group>
             <Input 
               onChange={handleTermChange} 
-              placeholder="Search by Artist or by Album" 
+              placeholder={
+                radioValue === 'artist'
+                  ? 'Search by Artist'
+                  : 'Search by Album'
+              }
               onPressEnter={() => {
                 setInputError('');
                 setMasters([]);

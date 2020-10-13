@@ -19,7 +19,7 @@ function Artists({ artist, onAdd }) {
               <div>Click for more info at DiscoGS</div>
             </div>
           </div>
-        <h4>All the releases for this artist:</h4>
+        <h4>{`Here are all the releases we found for ${artist.title}:`}</h4>
         <Releases 
           artistsUrl={artist.url} 
           onAdd={onAdd}
