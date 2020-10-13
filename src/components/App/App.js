@@ -3,7 +3,6 @@ import { Radio, Input, Button, Layout, notification } from 'antd';
 
 import Discogs from '../../utils/DiscogsAPI';
 import Artists from '../Artists/Artists';
-import Releases from '../Releases/Releases';
 import Albums from '../Albums/Albums';
 import Collection from '../Collection/Collection';
 
@@ -125,11 +124,7 @@ function App() {
                 ? <>
                     {artists.title &&
                       <>
-                        <Artists artists={artists} />
-                        <Releases 
-                          artistsUrl={artists.url} 
-                          onAdd={addToCollection} 
-                        /> 
+                        <Artists artists={artists} onAdd={addToCollection} />
                       </>
                     }
                   </>

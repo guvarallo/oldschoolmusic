@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { PlusCircleOutlined } from '@ant-design/icons';
 
+import Releases from '../Releases/Releases';
 import Discogs from '../../utils/DiscogsAPI';
 import './Artists.css';
 
-function Artists({ artists }) {
+function Artists({ artists, onAdd }) {
   const [artist, setArtist] = useState({});
   const [inputError, setInputError] = useState('');
 
@@ -16,9 +18,26 @@ function Artists({ artists }) {
   return (
     <div className="artist">
       {inputError && <p className="error">{inputError}</p>}
-      <h4>{artist.name}</h4>
-      <img src={artist.img} alt={artist.name}/>
-      <h4>All the releases for this artist:</h4>
+      {!!Object.keys(artist).length && 
+      <>
+        <h4>{artist.name}</h4>
+          <div className="container">
+            <a href={artist.uri} target="blank">
+              <img src={artist.img} alt={artist.name} className="artistImg" />
+            </a>
+            <div className="middle">
+              <PlusCircleOutlined />
+              <div>Click for more info at DiscoGS</div>
+            </div>
+          </div>
+        <h4>All the releases for this artist:</h4>
+        <Releases 
+          artistsUrl={artists.url} 
+          onAdd={onAdd}
+          artist={artist}
+        /> 
+      </>
+      }
     </div>
   )
 }

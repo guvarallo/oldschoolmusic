@@ -6,7 +6,7 @@ import Discogs from '../../utils/DiscogsAPI';
 
 import './Releases.css';
 
-function Releases({ artistsUrl, onAdd }) {
+function Releases({ artistsUrl, onAdd, artist }) {
   const [releases, setReleases] = useState([]);
   const [pagination, setPagination] = useState({});
   const [page, setPage] = useState(1);
@@ -15,21 +15,25 @@ function Releases({ artistsUrl, onAdd }) {
   const releasesUrl = artistsUrl + `/releases?sort=year&sort_order=asc&page=${page}`;
   const url = 'https://www.discogs.com';
 
-
+  // Fetch the releases only if there is a valid artist
   useEffect(() => {
-    Discogs.releases(releasesUrl)
-    .then(setIsLoading(true))
-    .then(setReleases([]))
-    .then(results => {
-      setReleases([...results[0]]);
-      setPagination(results[1]);
-      setIsLoading(false);
-    })
-    .catch(err => {
-      setIsLoading(false);
-      setInputError('Releases not found')
-    });
-  }, [releasesUrl]);
+    if (!Object.keys(artist).length) {
+      return;
+    } else {
+      Discogs.releases(releasesUrl)
+      .then(setIsLoading(true))
+      .then(setReleases([]))
+      .then(results => {
+        setReleases([...results[0]]);
+        setPagination(results[1]);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        setIsLoading(false);
+        setInputError('Releases not found')
+      });
+    }
+  }, [artist, artistsUrl, releasesUrl]);
 
   function showTotal(total, range) {
     return `${range[0]}-${range[1]} of ${total} items`

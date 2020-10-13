@@ -28,6 +28,7 @@ const Discogs = {
           id: result.id,
           img: result.thumb,
           title: result.title,
+          type: result.type,
           uri: result.uri
         }
       });
@@ -43,10 +44,12 @@ const Discogs = {
     })
     .then(res => res.json())
     .then(data => {
+      console.log(data)
       return {
         id: data.id,
-        img: data.images[0].resource_url,
+        img: data.images[0].resource_url || '',
         name: data.name,
+        uri: data.uri
       }
     })
   },
@@ -59,7 +62,6 @@ const Discogs = {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
       const releases = data.releases.map(release => ({
           id: release.id,
           img: release.thumb,
